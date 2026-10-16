@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a12">
+<title>Mew Creator — Web Clip Studio</title>
+<style>
+:root{color-scheme:dark;--bg:#080a12;--panel:rgba(24,28,46,.78);--line:rgba(255,255,255,.1);--text:#f5f5ff;--muted:#999fb9;--purple:#b56cff;--blue:#568cff;--pink:#ff65c8}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 10% 0%,#25204c 0,transparent 40%),radial-gradient(ellipse at 100% 40%,#10294a 0,transparent 38%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 15px calc(30px + env(safe-area-inset-bottom));}
+.app{max-width:600px;margin:auto}
+header{display:flex;align-items:center;gap:12px;padding:22px 3px}
+.brand{width:48px;height:48px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#b56cff,#4b82ff);font-size:25px;box-shadow:0 0 28px #865aff45}
+h1{font-size:19px;margin:0 0 4px}header p{font-size:12px;color:var(--muted);margin:0}
+.pill{margin-left:auto;border:1px solid #b56cff55;border-radius:30px;padding:7px 10px;font-size:10px;color:#d5b0ff}
+.hero{padding:20px;border:1px solid var(--line);border-radius:25px;background:linear-gradient(135deg,#ffffff0b,#b56cff0b);margin-bottom:15px}
+.hero small{color:#c4a2ff;letter-spacing:2px;font-size:10px}
+.hero h2{font-size:25px;margin:10px 0 7px}
+.hero p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}
+.card{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:22px;padding:17px;margin-bottom:14px;box-shadow:0 12px 35px #0002}
+.card h3{font-size:15px;margin:0 0 15px;display:flex;align-items:center;gap:9px}
+.num{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:#a76cff20;color:#d0a5ff}
+label{display:block;font-size:12px;color:#c1c5d8;margin:14px 0 7px}
+input,textarea,select{width:100%;border:1px solid var(--line);border-radius:13px;padding:13px;background:#090c17;color:white;font:inherit;font-size:14px;outline:none}
+input:focus,textarea:focus,select:focus{border-color:#a76cff}
+textarea{min-height:115px;resize:vertical;line-height:1.5}
+button{border:1px solid var(--line);background:#ffffff0b;color:white;border-radius:12px;padding:11px 13px;font-size:12px;font-weight:650;cursor:pointer}
+button:active{transform:scale(.97)}
+.primary{background:linear-gradient(110deg,#9855f8,#4d7dff);border:0;box-shadow:0 5px 22px #795aff35}
+.danger{color:#ff8b9c;border-color:#ff657533}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.row button{flex:1}
+.logo-area{display:flex;align-items:center;gap:14px}
+.preview-logo{width:88px;height:88px;flex-shrink:0;border-radius:22px;background:linear-gradient(135deg,#242b44,#121522);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;font-size:12px;color:var(--muted)}
+.preview-logo img{width:100%;height:100%;object-fit:cover}
+.logo-actions{flex:1;min-width:0}
+.logo-actions p{font-size:11px;color:var(--muted);line-height:1.5}
+.switchrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #ffffff0b;font-size:13px}
+.switchrow:last-child{border:0}
+.switchrow small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.switch{appearance:none;width:44px;height:26px;padding:0;border:0;border-radius:20px;background:#34374a;position:relative;flex-shrink:0}
+.switch:checked{background:#36d978}
+.switch:before{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:white;left:3px;top:3px;transition:.2s}
+.switch:checked:before{left:21px}
+.status{font-size:12px;line-height:1.5;color:#75e5a6;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto;background:#070a12;border:1px solid var(--line);padding:12px;border-radius:12px;font-size:10px;color:#b7c7ff;line-height:1.5}
+.muted{color:var(--muted);font-size:11px;line-height:1.6}
+.statline{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:10px}
+.bottom{font-size:11px;text-align:center;color:#777d98;padding:14px}
+#fileInput,#baseFile{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand">✦</div>
+  <div><h1>Mew Creator</h1><p>MobileConfig · Web Clip Studio</p></div>
+  <span class="pill">PRO EDITION</span>
+</header>
+
+<section class="hero">
+  <small>MEW / PROFILE BUILDER</small>
+  <h2>Make your own<br>Web Clip.</h2>
+  <p>Tạo biểu tượng website trên màn hình chính iPhone với giao diện Neon Liquid Glass.</p>
+</section>
+
+<section class="card">
+  <h3><span class="num">01</span> Web Clip App Logo</h3>
+  <div class="logo-area">
+    <div class="preview-logo" id="logoPreview">No Logo</div>
+    <div class="logo-actions">
+      <button class="primary" onclick="document.getElementById('fileInput').click()">＋ Chọn ảnh</button>
+      <button class="danger" onclick="removeLogo()">Xóa logo</button>
+      <p>Chọn ảnh PNG hoặc JPG. Ảnh sẽ được xử lý thành icon vuông 180 × 180.</p>
+    </div>
+  </div>
+  <input id="fileInput" type="file" accept="image/*">
+  <label for="appName">App Name</label>
+  <input id="appName" maxlength="80" placeholder="Ví dụ: Mew Proxy" value="Mew Proxy">
+  <label for="website">Website URL</label>
+  <input id="website" type="url" placeholder="https://example.com">
+  <label for="identifier">Payload Identifier</label>
+  <input id="identifier" value="com.mewcreator.webclip" placeholder="com.example.webclip">
+  <div class="statline"><span>● Tạo cấu hình Web Clip</span><span>● Tối ưu iPhone</span></div>
+</section>
+
+<section class="card">
+  <h3><span class="num">02</span> Web Clip Settings</h3>
+  <div class="switchrow"><div>Full Screen<small>Mở website ở chế độ toàn màn hình nếu iOS hỗ trợ</small></div><input class="switch" id="fullscreen" type="checkbox" checked></div>
+  <div class="switchrow"><div>Removable<small>Cho phép người dùng xóa Web Clip</small></div><input class="switch" id="removable" type="checkbox" checked></div>
+  <div class="switchrow"><div>Precomposed Icon<small>Giữ nguyên thiết kế icon, hạn chế hiệu ứng trang trí tự động</small></div><input class="switch" id="precomposed" type="checkbox" checked></div>
+</section>
+
+<section class="card">
+  <h3><span class="num">03</span> Base64 Editor</h3>
+  <p class="muted">Nhập Base64 thuần hoặc tải một tệp lên để chuyển thành Base64. Dữ liệu này được xử lý ngay trong trình duyệt.</p>
+  <textarea id="base64" placeholder="Dán nội dung Base64 tại đây..."></textarea>
+  <div class="row">
+    <button onclick="pasteBase64()">Dán Clipboard</button>
+    <button onclick="copyBase64()">Copy Base64</button>
+    <button onclick="document.getElementById('baseFile').click()">Import File</button>
+  </div>
+  <div class="row">
+    <button class="danger" onclick="clearBase64()">Xóa dữ liệu</button>
+    <button onclick="decodeBase64()">Kiểm tra Base64</button>
+  </div>
+  <input id="baseFile" type="file">
+  <div class="statline"><span id="baseSize">0 ký tự</span><span id="baseStatus">Chưa có dữ liệu</span></div>
+  <p class="muted">Base64 là cách biểu diễn dữ liệu, không phải mã hóa bảo mật.</p>
+</section>
+
+<section class="card">
+  <h3><span class="num">04</span> XML Preview</h3>
+  <p class="muted">Nội dung cấu hình sẽ cập nhật khi bạn tạo bản xem trước.</p>
+  <pre id="xmlPreview">Chưa tạo cấu hình.</pre>
+  <div class="row">
+    <button class="primary" onclick="refreshPreview()">↻ Refresh Preview</button>
+    <button onclick="copyXML()">Copy XML</button>
+  </div>
+  <p id="previewStatus" class="status"></p>
+</section>
+
+<section class="card">
+  <h3><span class="num">05</span> Export MobileConfig</h3>
+  <label for="fileName">Tên file xuất</label>
+  <input id="fileName" value="MewCreator" placeholder="MewCreator">
+  <button class="primary" style="width:100%;margin-top:14px;padding:15px" onclick="exportMobileConfig()">↓ Xuất .mobileconfig</button>
+  <p id="exportStatus" class="status"></p>
+  <p class="muted">Sau khi tải xuống, mở tệp trên iPhone để xem hướng dẫn cài đặt hồ sơ. iOS có thể yêu cầu xác nhận trong Cài đặt. Chỉ cài cấu hình do bạn tạo và tin tưởng.</p>
+</section>
+<div class="bottom">MEW CREATOR · MADE FOR IPHONE<br>Neon Interface / Local Processing</div>
+</div>
+
+<script>
+let iconData = "";
+
+const $ = id => document.getElementById(id);
+
+function escapeXML(value) {
+  return String(value).replace(/[<>&'"]/g, c => ({
+    '<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'
+  })[c]);
+}
+
+function getForm() {
+  const name = $('appName').value.trim();
+  const url = $('website').value.trim();
+  const identifier = $('identifier').value.trim();
+  if (!name) throw Error('Vui lòng nhập tên Web Clip.');
+  if (!url) throw Error('Vui lòng nhập Website URL.');
+  let parsed;
+  try { parsed = new URL(url); } catch { throw Error('Website URL không hợp lệ.'); }
+  if (!['http:', 'https:'].includes(parsed.protocol))
+    throw Error('Website phải sử dụng HTTP hoặc HTTPS.');
+  if (!identifier || !/^[A-Za-z0-9.-]+$/.test(identifier))
+    throw Error('Payload Identifier chỉ nên chứa chữ, số, dấu chấm hoặc gạch ngang.');
+  return {name, url:parsed.href, identifier};
+}
+
+function makePayload() {
+  const f = getForm();
+  const payload = {
+    PayloadType: 'com.apple.webClip.managed',
+    PayloadVersion: 1,
+    PayloadIdentifier: f.identifier,
+    PayloadUUID: uuid(),
+    PayloadDisplayName: f.name,
+    Label: f.name,
+    URL: f.url,
+    IsRemovable: $('removable').checked,
+    FullScreen: $('fullscreen').checked,
+    Precomposed: $('precomposed').checked
+  };
+  if (iconData) payload.Icon = iconData.split(',').pop();
+  return payload;
+}
+
+function uuid() {
+  if (crypto.randomUUID) return crypto.randomUUID().toUpperCase();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random()*16|0;
+    return (c==='x'?r:(r&3|8)).toString(16);
+  }).toUpperCase();
+}
+
+function plistValue(value) {
+  if (typeof value === 'boolean') return value ? '<true/>' : '<false/>';
+  if (typeof value === 'number') return '<integer>'+value+'</integer>';
+  return '<string>'+escapeXML(value)+'</string>';
+}
+
+function objectToPlist(obj, indent='') {
+  return '<dict>\n' + Object.entries(obj).map(([key,value]) =>
+    indent+'  <key>'+escapeXML(key)+'</key>\n'+indent+'  '+plistValue(value)
+  ).join('\n') + '\n'+indent+'</dict>';
+}
+
+function makeXML() {
+  const payload = makePayload();
+  const profile = {
+    PayloadContent: [payload],
+    PayloadDescription: 'Web Clip profile created with Mew Creator.',
+    PayloadDisplayName: $('appName').value.trim(),
+    PayloadIdentifier: 'com.mewcreator.profile.' + $('identifier').value.trim(),
+    PayloadOrganization: 'Mew Creator',
+    PayloadRemovalDisallowed: false,
+    PayloadType: 'Configuration',
+    PayloadUUID: uuid(),
+    PayloadVersion: 1
+  };
+  // The Web Clip payload is represented as a nested plist dictionary.
+  const webclipXML = '<dict>\n' + Object.entries(payload).map(([key,value]) => {
+    let encodedValue;
+    if (key === 'Icon' && typeof value === 'string') {
+      // Apple plist expects Icon as <data>, not a Base64 <string>.
+      const wrapped = value.replace(/\s+/g, '').match(/.{1,68}/g)?.join('\n        ') || '';
+      encodedValue = '<data>\n        ' + wrapped + '\n      </data>';
+    } else {
+      encodedValue = plistValue(value);
+    }
+    return '      <key>'+escapeXML(key)+'</key>\n      '+encodedValue;
+  }).join('\n') + '\n    </dict>';
+
+  const top = [];
+  for (const [key,value] of Object.entries(profile)) {
+    top.push('    <key>'+escapeXML(key)+'</key>');
+    if (key === 'PayloadContent') {
+      top.push('    <array>\n'+webclipXML+'\n    </array>');
+    } else {
+      top.push('    '+plistValue(value));
+    }
+  }
+  return '<?xml version="1.0" encoding="UTF-8"?>\n'+
+    '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">\n'+
+    '<plist version="1.0">\n  <dict>\n'+top.join('\n')+
+    '\n  </dict>\n</plist>\n';
+}
+
+function refreshPreview() {
+  try {
+    $('xmlPreview').textContent = makeXML();
+    $('previewStatus').textContent = '✓ XML đã được tạo.';
+  } catch(e) {
+    $('previewStatus').textContent = '⚠ ' + e.message;
+  }
+}
+
+function downloadBlob(blob, filename) {
+  const link = document.createElement('a');
+  const objectURL = URL.createObjectURL(blob);
+  link.href = objectURL;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(objectURL), 1500);
+}
+
+function exportMobileConfig() {
+  try {
+    const xml = makeXML();
+    const name = $('fileName').value.trim().replace(/[^a-zA-Z0-9_-]/g,'_') || 'MewCreator';
+    downloadBlob(new Blob([xml], {type:'application/x-apple-aspen-config;charset=utf-8'}), name+'.mobileconfig');
+    $('exportStatus').textContent = '✓ Đã tạo tệp .mobileconfig. Kiểm tra thư mục Tệp/Downloads.';
+  } catch(e) {
+    $('exportStatus').textContent = '⚠ ' + e.message;
+  }
+}
+
+$('fileInput').addEventListener('change', async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const data = await new Promise((resolve,reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 180;
+      const ctx = canvas.getContext('2d');
+      const side = Math.min(img.width,img.height);
+      ctx.drawImage(img,(img.width-side)/2,(img.height-side)/2,side,side,0,0,180,180);
+      iconData = canvas.toDataURL('image/png');
+      $('logoPreview').innerHTML = '';
+      const preview = new Image();
+      preview.src = iconData;
+      $('logoPreview').appendChild(preview);
+      $('previewStatus').textContent = '✓ Đã tải icon 180 × 180.';
+      refreshPreview();
+    };
+    img.onerror = () => {
+      iconData = '';
+      alert('Không thể đọc ảnh này. Hãy thử ảnh PNG hoặc JPG khác.');
+    };
+    img.src = data;
+  } catch {
+    alert('Không thể xử lý ảnh.');
+  }
+  event.target.value = '';
+});
+
+function removeLogo() {
+  iconData = '';
+  $('logoPreview').textContent = 'No Logo';
+  refreshPreview();
+}
+
+$('base64').addEventListener('input', () => {
+  $('baseSize').textContent = $('base64').value.length.toLocaleString()+' ký tự';
+  $('baseStatus').textContent = $('base64').value.trim() ? 'Có dữ liệu' : 'Chưa có dữ liệu';
+});
+
+async function pasteBase64() {
+  try {
+    $('base64').value = await navigator.clipboard.readText();
+    $('base64').dispatchEvent(new Event('input'));
+  } catch {
+    $('baseStatus').textContent = 'Không đọc được Clipboard. Hãy nhấn giữ để Dán.';
+  }
+}
+
+async function copyBase64() {
+  try {
+    await navigator.clipboard.writeText($('base64').value);
+    $('baseStatus').textContent = '✓ Đã sao chép Base64.';
+  } catch {
+    $('base64').select();
+    $('baseStatus').textContent = 'Hãy sao chép thủ công nội dung đã chọn.';
+  }
+}
+
+function clearBase64() {
+  $('base64').value = '';
+  $('base64').dispatchEvent(new Event('input'));
+  $('baseStatus').textContent = 'Đã xóa dữ liệu.';
+}
+
+function decodeBase64() {
+  try {
+    const clean = $('base64').value.replace(/^data:[^,]*,/,'').replace(/\s/g,'');
+    atob(clean);
+    $('baseStatus').textContent = '✓ Base64 hợp lệ.';
+  } catch {
+    $('baseStatus').textContent = '⚠ Base64 không hợp lệ hoặc chưa đầy đủ.';
+  }
+}
+
+$('baseFile').addEventListener('change', async event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    $('base64').value = String(reader.result).split(',').pop();
+    $('base64').dispatchEvent(new Event('input'));
+    $('baseStatus').textContent = '✓ Đã nhập '+file.name;
+  };
+  reader.readAsDataURL(file);
+  event.target.value = '';
+});
+
+async function copyXML() {
+  try {
+    await navigator.clipboard.writeText(makeXML());
+    $('previewStatus').textContent = '✓ Đã sao chép XML.';
+  } catch {
+    $('previewStatus').textContent = 'Không sao chép được. Hãy thử Refresh Preview rồi chọn nội dung XML.';
+  }
+}
+
+['appName','website','identifier','fullscreen','removable','precomposed'].forEach(id => {
+  $(id).addEventListener('input', refreshPreview);
+  $(id).addEventListener('change', refreshPreview);
+});
+refreshPreview();
+</script>
+</body>
+</html>
